@@ -1,3 +1,4 @@
+#include <cassert>
 #include <catch.hpp>
 #include <sstream>
 
@@ -28,4 +29,193 @@ TEST_CASE("reading matrix")
     matrix.write( ostream );
     
     REQUIRE( input == ostream.str() );
+}
+
+matrix_t matrix( std::string const & representation )
+{
+    matrix_t result;
+    
+    std::istringstream istream{ representation };
+    assert( result.read( istream ) );
+    
+    return result;
+}
+
+std::string representation( matrix_t const & matrix )
+{
+    std::ostringstream ostream;
+    matrix.write( ostream );
+    
+    return ostream.str();
+}
+
+TEST_CASE("addings matrixs")
+{
+    std::string first_matrix_representation{
+        "1, 3\n"
+        "1 1 1\n"
+    };
+    std::string second_matrix_representation{
+        "1, 3\n"
+        "1 1 1\n"
+    };
+    matrix_t first_matrix = matrix( first_matrix_representation );
+    matrix_t second_matrix = matrix( second_matrix_representation );
+    
+    matrix_t result_matrix = first_matrix + second_matrix;
+
+    std::string expected_result_matrix_representation{
+        "1, 3\n"
+        "2 2 2\n"
+    };
+    
+    REQUIRE( representation( result_matrix ) == expected_result_matrix_representation );
+}
+
+TEST_CASE("subtracting matrixs")
+{
+    std::string first_matrix_representation{
+        "1, 3\n"
+        "1 1 1\n"
+    };
+    std::string second_matrix_representation{
+        "1, 3\n"
+        "1 1 1\n"
+    };
+    matrix_t first_matrix = matrix( first_matrix_representation );
+    matrix_t second_matrix = matrix( second_matrix_representation );
+    
+    matrix_t result_matrix = first_matrix - second_matrix;
+
+    std::string expected_result_matrix_representation{
+        "1, 3\n"
+        "0 0 0\n"
+    };
+    
+    REQUIRE( representation( result_matrix ) == expected_result_matrix_representation );
+}
+
+TEST_CASE("multiplying matrixs")
+{
+    std::string first_matrix_representation{
+        "1, 3\n"
+        "1 1 1\n"
+    };
+    std::string second_matrix_representation{
+        "3, 1\n"
+        "1\n"
+        "1\n"
+        "1\n"
+    };
+    matrix_t first_matrix = matrix( first_matrix_representation );
+    matrix_t second_matrix = matrix( second_matrix_representation );
+    
+    matrix_t result_matrix = first_matrix * second_matrix;
+
+    std::string expected_result_matrix_representation{
+        "1, 1\n"
+        "3"
+    };
+    
+    REQUIRE( representation( result_matrix ) == expected_result_matrix_representation );
+}
+
+TEST_CASE("addings_2 matrixs")
+{
+    std::string first_matrix_representation{
+        "1, 3\n"
+        "1 1 1\n"
+    };
+    std::string second_matrix_representation{
+        "1, 3\n"
+        "1 1 1\n"
+    };
+    matrix_t first_matrix = matrix( first_matrix_representation );
+    matrix_t second_matrix = matrix( second_matrix_representation );
+    
+    first_matrix += second_matrix;
+
+    std::string expected_result_matrix_representation{
+        "1, 3\n"
+        "2 2 2\n"
+    };
+    
+    REQUIRE( representation( first_matrix ) == expected_result_matrix_representation );
+}
+
+TEST_CASE("subtracting_2 matrixs")
+{
+    std::string first_matrix_representation{
+        "1, 3\n"
+        "1 1 1\n"
+    };
+    std::string second_matrix_representation{
+        "1, 3\n"
+        "1 1 1\n"
+    };
+    matrix_t first_matrix = matrix( first_matrix_representation );
+    matrix_t second_matrix = matrix( second_matrix_representation );
+    
+    first_matrix -= second_matrix;
+
+    std::string expected_result_matrix_representation{
+        "1, 3\n"
+        "0 0 0\n"
+    };
+    
+    REQUIRE( representation( first_matrix ) == expected_result_matrix_representation );
+}
+
+TEST_CASE("multiplying_2 matrixs")
+{
+    std::string first_matrix_representation{
+        "1, 3\n"
+        "1 1 1\n"
+    };
+    std::string second_matrix_representation{
+        "3, 1\n"
+        "1\n"
+        "1\n"
+        "1\n"
+    };
+    matrix_t first_matrix = matrix( first_matrix_representation );
+    matrix_t second_matrix = matrix( second_matrix_representation );
+    
+    first_matrix *= second_matrix;
+
+    std::string expected_result_matrix_representation{
+        "1, 1\n"
+        "3"
+    };
+    
+    REQUIRE( representation( first_matrix ) == expected_result_matrix_representation );
+}
+
+TEST_CASE("addings matrixs 3x1")
+{
+    std::string first_matrix_representation{
+        "3, 1\n"
+        "1\n"
+        "1\n"
+        "1\n"
+    };
+    std::string second_matrix_representation{
+        "3, 1\n"
+        "1\n"
+        "1\n"
+        "1\n"
+    };
+    matrix_t first_matrix = matrix( first_matrix_representation );
+    matrix_t second_matrix = matrix( second_matrix_representation );
+    
+    matrix_t result_matrix = first_matrix + second_matrix;
+
+    std::string expected_result_matrix_representation{
+        "3, 1\n"
+        "2\n"
+        "2\n"
+        "2\n"
+    };
+    
+    REQUIRE( representation( result_matrix ) == expected_result_matrix_representation );
 }

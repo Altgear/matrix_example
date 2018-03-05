@@ -1,5 +1,6 @@
 #include "matrix.hpp"
 
+
 matrix_t::matrix_t() : elements_{nullptr}, rows_{0}, collumns_{0}
 {
 }

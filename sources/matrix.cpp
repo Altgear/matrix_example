@@ -1,6 +1,5 @@
 #include "matrix.hpp"
 
-
 matrix_t::matrix_t() : elements_{nullptr}, rows_{0}, collumns_{0}
 {
 }
@@ -34,8 +33,8 @@ matrix_t &matrix_t::operator=(matrix_t const &other ) {
                 elements_[i][j] = other.elements_[i][j];
             }
         }
-        return *this;
     }
+    return *this;
 }
 
 matrix_t::~matrix_t() {
@@ -56,8 +55,8 @@ std::size_t matrix_t::collumns() const {
 }
 
 matrix_t matrix_t::operator+(matrix_t const &other ) const {
+    matrix_t result;
     if ( rows_ == other.rows_ && collumns_ == other.collumns_ ) {
-        matrix_t result;
         for ( unsigned int i = 0; i < rows_; i++ ) {
             result.elements_ = new float *[rows_];
             for ( unsigned int j = 0; j < collumns_; j++ ) {
@@ -65,17 +64,14 @@ matrix_t matrix_t::operator+(matrix_t const &other ) const {
                 result.elements_[i][j] = elements_[i][j] + other.elements_[i][j];
             }
         }
-
-        return result;
-    } else {
-        std::cout << std::endl << "Wrong dimensions";
-        exit(0);
     }
+    return result;
+
 }
 
 matrix_t matrix_t::operator-(matrix_t const &other ) const {
+    matrix_t result;
     if ( rows_ == other.rows_ && collumns_ == other.collumns_ ) {
-        matrix_t result;
         for ( unsigned int i = 0; i < rows_; i++ ) {
             result.elements_ = new float *[rows_];
             for ( unsigned int j = 0; j < collumns_; j++ ) {
@@ -83,14 +79,13 @@ matrix_t matrix_t::operator-(matrix_t const &other ) const {
                 result.elements_[i][j] = elements_[i][j] - other.elements_[i][j];
             }
         }
-        return result;
-    } else {
-        std::cout << std::endl << "Wrong dimensions";
-        exit(0);
     }
+    return result;
+
 }
 
 matrix_t matrix_t::operator*(matrix_t const &other ) const {
+    matrix_t result;
     if ( collumns_ == other.rows_ ) {
         matrix_t result;
         for ( unsigned int i = 0; i < rows_; i++ ) {
@@ -104,42 +99,33 @@ matrix_t matrix_t::operator*(matrix_t const &other ) const {
                 result.elements_[i][j] = sum;
             }
         }
-        return result;
-    } else {
-        std::cout << std::endl << "Wrong dimensions";
-        exit(0);
     }
+    return result;
 }
 
-matrix_t &matrix_t::operator-=(matrix_t const &other ) {
+matrix_t & matrix_t::operator-=(matrix_t const &other ) {
     if ( rows_ == other.rows_ && collumns_ == other.collumns_ ) {
         for ( unsigned int i = 0; i < rows_; i++ ) {
             for ( unsigned int j = 0; j < collumns_; j++ ) {
                 elements_[i][j] -= other.elements_[i][j];
             }
         }
-        return *this;
-    } else {
-        std::cout << std::endl << "Wrong dimensions";
-        exit(0);
     }
+    return *this;
 }
 
-matrix_t &matrix_t::operator+=(matrix_t const &other ) {
+matrix_t & matrix_t::operator+=(matrix_t const &other ) {
     if ( rows_ == other.rows_ && collumns_ == other.collumns_ ) {
         for ( unsigned int i = 0; i < rows_; i++ ) {
             for ( unsigned int j = 0; j < collumns_; j++ ) {
                 elements_[i][j] += other.elements_[i][j];
             }
         }
-        return *this;
-    } else {
-        std::cout << std::endl << "Wrong dimensions";
-        exit(0);
     }
+    return *this;
 }
 
-matrix_t &matrix_t::operator*=(matrix_t const &other ) {
+matrix_t & matrix_t::operator*=(matrix_t const &other ) {
     if ( collumns_ == other.rows_ ) {
         matrix_t result;
         for ( unsigned int i = 0; i < rows_; i++ ) {
@@ -158,14 +144,11 @@ matrix_t &matrix_t::operator*=(matrix_t const &other ) {
         }
         delete[] elements_;
         elements_ = result.elements_;
-        return *this;
-    } else {
-        std::cout << std::endl << "Wrong dimensions";
-        exit(0);
     }
+    return *this;
 }
 
-std::istream &matrix_t::read(std::istream &stream) {
+std::istream & matrix_t::read(std::istream & stream) {
     std::size_t rows;
     std::size_t collumns;
     char symbol;
@@ -209,7 +192,7 @@ std::istream &matrix_t::read(std::istream &stream) {
     return stream;
 }
 
-std::ostream &matrix_t::write(std::ostream &stream) const {
+std::ostream & matrix_t::write(std::ostream & stream) const {
     stream << rows_ << ", " << collumns_;
     for ( std::size_t i = 0; i < rows_; ++i ) {
         stream << '\n';

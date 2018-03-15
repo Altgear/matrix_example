@@ -38,8 +38,6 @@ matrix_t &matrix_t::operator=(matrix_t const &other ) {
 }
 
 matrix_t::~matrix_t() {
-    rows_ = 0;
-    collumns_ = 0;
     for ( unsigned int i = 0; i < rows_; ++i ) {
         delete[] elements_[i];
     }
@@ -57,10 +55,10 @@ std::size_t matrix_t::collumns() const {
 matrix_t matrix_t::operator+(matrix_t const &other ) const {
     matrix_t result;
     if ( rows_ == other.rows_ && collumns_ == other.collumns_ ) {
+        result.elements_ = new float *[rows_];
         for ( unsigned int i = 0; i < rows_; i++ ) {
-            result.elements_ = new float *[rows_];
+            result.elements_[i] = new float[collumns_];
             for ( unsigned int j = 0; j < collumns_; j++ ) {
-                result.elements_[i] = new float[collumns_];
                 result.elements_[i][j] = elements_[i][j] + other.elements_[i][j];
             }
         }
@@ -72,10 +70,10 @@ matrix_t matrix_t::operator+(matrix_t const &other ) const {
 matrix_t matrix_t::operator-(matrix_t const &other ) const {
     matrix_t result;
     if ( rows_ == other.rows_ && collumns_ == other.collumns_ ) {
+        result.elements_ = new float *[rows_];
         for ( unsigned int i = 0; i < rows_; i++ ) {
-            result.elements_ = new float *[rows_];
+            result.elements_[i] = new float[collumns_];
             for ( unsigned int j = 0; j < collumns_; j++ ) {
-                result.elements_[i] = new float[collumns_];
                 result.elements_[i][j] = elements_[i][j] - other.elements_[i][j];
             }
         }
@@ -88,10 +86,10 @@ matrix_t matrix_t::operator*(matrix_t const &other ) const {
     matrix_t result;
     if ( collumns_ == other.rows_ ) {
         matrix_t result;
+        result.elements_ = new float *[rows_];
         for ( unsigned int i = 0; i < rows_; i++ ) {
-            result.elements_ = new float *[rows_];
+            result.elements_[i] = new float[other.collumns_];
             for ( unsigned int j = 0; j < other.collumns_; j++ ) {
-                result.elements_[i] = new float[other.collumns_];
                 std::size_t sum = 0;
                 for ( unsigned int k = 0; k < collumns_; k++ ) {
                     sum += elements_[i][k] * other.elements_[k][j];

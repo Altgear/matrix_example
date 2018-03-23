@@ -110,7 +110,6 @@ matrix_t matrix_t::operator*(matrix_t const &other) const
     matrix_t result;
     if (collumns_ == other.rows_)
     {
-        matrix_t result;
         result.rows_ = rows_;
         result.collumns_ = other.collumns_;
         result.elements_ = new float *[rows_];
@@ -166,6 +165,9 @@ matrix_t &matrix_t::operator*=(matrix_t const &other)
     if (collumns_ == other.rows_)
     {
         matrix_t result;
+        result.rows_ = rows_;
+        result.collumns_ = other.collumns_;
+
         result.elements_ = new float *[rows_];
         for (unsigned int i = 0; i < rows_; i++)
         {
@@ -186,6 +188,8 @@ matrix_t &matrix_t::operator*=(matrix_t const &other)
         }
         delete[] elements_;
         elements_ = result.elements_;
+        rows_ = result.rows_;
+        collumns_ = result.collumns_;
     }
     return *this;
 }

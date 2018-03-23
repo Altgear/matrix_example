@@ -166,12 +166,12 @@ matrix_t &matrix_t::operator*=(matrix_t const &other)
     if (collumns_ == other.rows_)
     {
         matrix_t result;
+        result.elements_ = new float *[rows_];
         for (unsigned int i = 0; i < rows_; i++)
         {
-            result.elements_ = new float *[rows_];
+            result.elements_[i] = new float[other.collumns_];
             for (unsigned int j = 0; j < other.collumns_; j++)
             {
-                result.elements_[i] = new float[other.collumns_];
                 std::size_t sum = 0;
                 for (unsigned int k = 0; k < collumns_; k++)
                 {

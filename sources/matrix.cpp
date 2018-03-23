@@ -187,6 +187,8 @@ matrix_t &matrix_t::operator*=(matrix_t const &other)
             delete[] elements_[i];
         }
         delete[] elements_;
+        elements_ = nullptr;
+        
         elements_ = result.elements_;
         rows_ = result.rows_;
         collumns_ = result.collumns_;

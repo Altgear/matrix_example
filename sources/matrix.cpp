@@ -162,16 +162,13 @@ matrix_t &matrix_t::operator+=(matrix_t const &other)
 
 matrix_t &matrix_t::operator*=(matrix_t const &other)
 {
+    float ** result;
     if (collumns_ == other.rows_)
     {
-        matrix_t result;
-        result.rows_ = rows_;
-        result.collumns_ = other.collumns_;
-
-        result.elements_ = new float *[rows_];
+        result = new float *[rows_];
         for (unsigned int i = 0; i < rows_; i++)
         {
-            result.elements_[i] = new float[other.collumns_];
+            result[i] = new float[other.collumns_];
             for (unsigned int j = 0; j < other.collumns_; j++)
             {
                 std::size_t sum = 0;
@@ -179,7 +176,7 @@ matrix_t &matrix_t::operator*=(matrix_t const &other)
                 {
                     sum += elements_[i][k] * other.elements_[k][j];
                 }
-                result.elements_[i][j] = sum;
+                result[i][j] = sum;
             }
         }
         for (std::size_t i = 0; i < rows_; ++i)
@@ -188,10 +185,9 @@ matrix_t &matrix_t::operator*=(matrix_t const &other)
         }
         delete[] elements_;
         elements_ = nullptr;
-        
-        elements_ = result.elements_;
-        rows_ = result.rows_;
-        collumns_ = result.collumns_;
+
+        elements_ = result;
+        collumns_ = other.collumns_;
     }
     return *this;
 }

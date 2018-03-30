@@ -238,7 +238,7 @@ matrix_t<Type> &matrix_t<Type>::operator*=(matrix_t<Type> const &other)
 }
 
 template <typename Type>
-std::istream &matrix_t::read(std::istream &stream)
+std::istream &matrix_t<Type>::read(std::istream &stream)
 {
 	std::size_t rows;
 	std::size_t collumns;

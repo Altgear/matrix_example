@@ -30,7 +30,7 @@ class matrix_t
 	matrix_t &operator*=(matrix_t const &other);
 
 	std::istream &read(std::istream &stream);
-	std::ostream &write(std::ostream &stream);
+	std::ostream &write(std::ostream &stream) const;
 };
 
 template <typename Type>
@@ -296,7 +296,7 @@ std::istream &matrix_t<Type>::read(std::istream &stream)
 }
 
 template <typename Type>
-std::ostream &matrix_t<Type>::write(std::ostream &stream) const
+std::ostream & matrix_t<Type>::write(std::ostream &stream) const
 {
 	stream << rows_ << ", " << collumns_;
 	for (std::size_t i = 0; i < rows_; ++i)

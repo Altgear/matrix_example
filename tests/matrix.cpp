@@ -33,7 +33,7 @@ TEST_CASE("reading matrix")
 //template <typename Type>//шаблонная ф-я
 matrix_t<int> matrix( std::string const & representation )
 {
-    matrix_t<Type> result;
+    matrix_t<int> result;
     
     std::istringstream istream{ representation };
     assert( result.read( istream ) );

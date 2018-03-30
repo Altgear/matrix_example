@@ -30,8 +30,8 @@ TEST_CASE("reading matrix")
     
     REQUIRE( input == ostream.str() );
 }
-template <typename Type>//шаблонная ф-я
-matrix_t<Type> matrix( std::string const & representation )
+//template <typename Type>//шаблонная ф-я
+matrix_t<int> matrix( std::string const & representation )
 {
     matrix_t<Type> result;
     
@@ -40,8 +40,8 @@ matrix_t<Type> matrix( std::string const & representation )
     
     return result;
 }
-template <typename Type>
-std::string representation( matrix_t<Type> const & matrix )
+//template <typename Type>
+std::string representation( matrix_t<int> const & matrix )
 {
     std::ostringstream ostream;
     matrix.write( ostream );
